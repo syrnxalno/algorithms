@@ -1,4 +1,4 @@
-public class Temp {
+public class ROP {
     public static void main(String[] args) {
         String input = "(()(()))((())())(()(()(())))()()((()))";
         removeOuterParentheses(input); 
