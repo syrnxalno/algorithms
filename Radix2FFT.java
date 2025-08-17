@@ -16,11 +16,12 @@
 public class Radix2FFT {
     public static void main(String args[]) {
         double log10_2_INV = 3.3219280948873623478703194294948;
-        isPowerOfTwo(0, 0, log10_2_INV);
+        isPowerOfTwo(0, log10_2_INV);
     }
 
-    public static boolean isPowerOfTwo(int N, int M, double val) {
-        M = (int) Math.ceil(Math.log10((double) N) * val);
+    public static boolean isPowerOfTwo(int N, double val) {
+        if (N <= 0) return false;
+        int M = (int) Math.ceil(Math.log10((double) N) * val);
         int NN = (int) Math.pow(2.0, M);
 
         if ((NN != N) || (NN == 0)) // Check N is a power of 2.
