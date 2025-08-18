@@ -37,6 +37,7 @@
         }
 
         // complex multiplication
+        // todo: Consider making this an instance method (a.multiply(b)) to avoid always creating new objects.
         public static Complex multiply(Complex a, Complex b) {
             return new Complex(a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re);
         }
@@ -97,7 +98,7 @@
                         pLo.re = TEMP.re;
                         pLo.im = TEMP.im;
                     }
-
+                    // todo: could optimize by doing in-place addition or subtraction?
                     DFT[HiIndex + BWidth].re = pHi.re - pLo.re;
                     DFT[HiIndex + BWidth].im = pHi.im - pLo.im;
                     DFT[HiIndex].re = pHi.re + pLo.re;
