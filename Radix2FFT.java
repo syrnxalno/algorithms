@@ -12,8 +12,14 @@
  * Rad2Deg = 57.295779513082320876798154814105 // Radians to Degrees factor
  * log10_2 = 0.30102999566398119521373889472449 // Log10 of 2
  * log10_2_INV = 3.3219280948873623478703194294948 // 1/Log10(2)
- */
-public class Radix2FFT {
+ *  */
+   public class Radix2FFT {
+
+    // constants
+    public static final double PI = 3.1415926535897932384626433832795;
+    public static final double TWOPI = 6.283185307179586476925286766559;
+    public static final double log10_2 = 0.30102999566398119521373889472449;
+    public static final double log10_2_INV = 3.3219280948873623478703194294948;
 
     // Complex number class
     public static class Complex {
@@ -30,29 +36,20 @@ public class Radix2FFT {
             this.im = im;
         }
 
-        // Complex multiplication
+        // complex multiplication
         public static Complex multiply(Complex a, Complex b) {
             return new Complex(a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re);
         }
     }
 
-    public static void main(String args[]) {
-        double log10_2_INV = 3.3219280948873623478703194294948;
-        isPowerOfTwo(0, log10_2_INV);
+    // Check if N is a power of 2
+    public static boolean isPowerOfTwo(int N, int[] M) {
+        M[0] = (int) Math.ceil(Math.log10(N) * log10_2_INV);
+        int NN = (int) Math.pow(2, M[0]);
+        return NN == N && NN != 0;
     }
 
-    public static boolean isPowerOfTwo(int N, double val) {
-        if (N <= 0)
-            return false;
-        int M = (int) Math.ceil(Math.log10((double) N) * val);
-        int NN = (int) Math.pow(2.0, M);
-
-        if ((NN != N) || (NN == 0)) // Check N is a power of 2.
-            return false;
-        return true;
-    }
-
-    /*// Radix-2 FFT
+    // Radix-2 FFT
     public static void rad2FFT(int N, Complex[] x, Complex[] DFT) throws Exception {
         int[] M = new int[1];
         if (!isPowerOfTwo(N, M)) {
@@ -63,7 +60,7 @@ public class Radix2FFT {
         int MM1 = stages - 1;
         double twoPi_N = TWOPI / N;
 
-        // Bit reversal
+        // bit reversal
         for (int i = 0; i < N; i++) {
             int ii = 0;
             int iaddr = i;
@@ -133,5 +130,4 @@ public class Radix2FFT {
             e.printStackTrace();
         }
     }
-} */
 }
