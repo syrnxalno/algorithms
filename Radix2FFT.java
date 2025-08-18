@@ -51,4 +51,87 @@ public class Radix2FFT {
             return false;
         return true;
     }
+
+    /*// Radix-2 FFT
+    public static void rad2FFT(int N, Complex[] x, Complex[] DFT) throws Exception {
+        int[] M = new int[1];
+        if (!isPowerOfTwo(N, M)) {
+            throw new Exception("Rad2FFT(): N must be a power of 2 for Radix FFT");
+        }
+
+        int stages = M[0];
+        int MM1 = stages - 1;
+        double twoPi_N = TWOPI / N;
+
+        // Bit reversal
+        for (int i = 0; i < N; i++) {
+            int ii = 0;
+            int iaddr = i;
+            for (int l = 0; l < stages; l++) {
+                if ((iaddr & 0x01) != 0) {
+                    ii += 1 << (MM1 - l);
+                }
+                iaddr >>= 1;
+                if (iaddr == 0) break;
+            }
+            DFT[ii] = new Complex(x[i].re, x[i].im);
+        }
+
+        // FFT computation (butterfly)
+        for (int stage = 1; stage <= stages; stage++) {
+            int BSep = (int) Math.pow(2, stage);
+            int BWidth = BSep / 2;
+            int P = N / BSep;
+            double twoPi_NP = twoPi_N * P;
+
+            for (int j = 0; j < BWidth; j++) {
+                Complex WN = new Complex(1.0, 0.0);
+                if (j != 0) {
+                    WN.re = Math.cos(twoPi_NP * j);
+                    WN.im = -Math.sin(twoPi_NP * j);
+                }
+
+                for (int HiIndex = j; HiIndex < N; HiIndex += BSep) {
+                    Complex pHi = DFT[HiIndex];
+                    Complex pLo = DFT[HiIndex + BWidth];
+
+                    if (j != 0) {
+                        Complex TEMP = Complex.multiply(pLo, WN);
+                        pLo.re = TEMP.re;
+                        pLo.im = TEMP.im;
+                    }
+
+                    DFT[HiIndex + BWidth].re = pHi.re - pLo.re;
+                    DFT[HiIndex + BWidth].im = pHi.im - pLo.im;
+                    DFT[HiIndex].re = pHi.re + pLo.re;
+                    DFT[HiIndex].im = pHi.im + pLo.im;
+                }
+            }
+        }
+    }
+
+    // Test method
+    public static void main(String[] args) {
+        try {
+            int N = 8; // Must be a power of 2
+            Complex[] x = new Complex[N];
+            Complex[] DFT = new Complex[N];
+
+            for (int i = 0; i < N; i++) {
+                x[i] = new Complex(i + 1, 0); // Example input
+                DFT[i] = new Complex();
+            }
+
+            rad2FFT(N, x, DFT);
+
+            System.out.println("FFT Result:");
+            for (Complex c : DFT) {
+                System.out.printf("%.4f + %.4fi%n", c.re, c.im);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+} */
 }
