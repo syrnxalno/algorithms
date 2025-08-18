@@ -14,13 +14,36 @@
  * log10_2_INV = 3.3219280948873623478703194294948 // 1/Log10(2)
  */
 public class Radix2FFT {
+
+    // Complex number class
+    public static class Complex {
+        public double re;
+        public double im;
+
+        public Complex() {
+            this.re = 0.0;
+            this.im = 0.0;
+        }
+
+        public Complex(double re, double im) {
+            this.re = re;
+            this.im = im;
+        }
+
+        // Complex multiplication
+        public static Complex multiply(Complex a, Complex b) {
+            return new Complex(a.re * b.re - a.im * b.im, a.re * b.im + a.im * b.re);
+        }
+    }
+
     public static void main(String args[]) {
         double log10_2_INV = 3.3219280948873623478703194294948;
         isPowerOfTwo(0, log10_2_INV);
     }
 
     public static boolean isPowerOfTwo(int N, double val) {
-        if (N <= 0) return false;
+        if (N <= 0)
+            return false;
         int M = (int) Math.ceil(Math.log10((double) N) * val);
         int NN = (int) Math.pow(2.0, M);
 
